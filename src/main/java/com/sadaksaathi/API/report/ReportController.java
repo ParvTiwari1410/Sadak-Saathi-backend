@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reports")
@@ -22,8 +21,10 @@ public class ReportController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getReportById(@PathVariable Long id) {
-        return ResponseEntity.ok(reportRepository.findById(id));
+    public ResponseEntity<Report> getReportById(@PathVariable Long id) {
+        return reportRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -34,7 +35,7 @@ public class ReportController {
         newReport.setStatus(reportRequest.getStatus());
         newReport.setSeverity(reportRequest.getSeverity());
         newReport.setDescription(reportRequest.getDescription());
-        newReport.setImageUrl(reportRequest.getImageUrl()); // Correctly sets the image URL
+        newReport.setPhotos(reportRequest.getPhotos()); // 👈 save photo URLs
         newReport.setSubmittedAt(LocalDateTime.now());
 
         Report savedReport = reportRepository.save(newReport);
