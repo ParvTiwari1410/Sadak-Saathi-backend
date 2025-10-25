@@ -8,7 +8,11 @@ public class CreateReportRequest {
     private String status;
     private String severity;
     private String description;
-    private List<String> photos; // 👈 multiple photos
+    private List<String> photos;
+    
+    // NEW: Add coordinates for map functionality
+    private Double latitude;
+    private Double longitude;
 
     // Getters and Setters
     public String getTitle() { return title; }
@@ -28,4 +32,11 @@ public class CreateReportRequest {
 
     public List<String> getPhotos() { return photos; }
     public void setPhotos(List<String> photos) { this.photos = photos; }
+
+    // NEW: Latitude/Longitude getters and setters
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 }

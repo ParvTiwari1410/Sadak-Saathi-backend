@@ -17,10 +17,27 @@ public class Report {
     private String severity;
     private String description;
 
-    @ElementCollection // 👈 store multiple photo URLs in a separate table
+    // NEW: Add precise coordinates for map functionality
+    private Double latitude;
+    private Double longitude;
+
+    @ElementCollection
     private List<String> photos;
 
     private LocalDateTime submittedAt = LocalDateTime.now();
+
+    // NEW: Enums for better type safety (optional but recommended)
+    public enum ReportStatus {
+        REPORTED, IN_PROGRESS, RESOLVED
+    }
+
+    public enum SeverityLevel {
+        CRITICAL, MODERATE, MINOR
+    }
+
+    public enum ReportType {
+        POTHOLE, WATERLOGGING, STREETLIGHT, ROAD_DAMAGE, OTHER
+    }
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -40,6 +57,13 @@ public class Report {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    // NEW: Latitude/Longitude getters and setters
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 
     public List<String> getPhotos() { return photos; }
     public void setPhotos(List<String> photos) { this.photos = photos; }
